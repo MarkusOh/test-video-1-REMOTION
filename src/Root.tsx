@@ -28,8 +28,13 @@ export const RemotionRoot: React.FC = () => {
           items: [
             {
               title: "Something in the air 1",
-              from: new Date(),
+              from: new Date("2024-09-30T17:02:54.682Z"),
               enabled: true,
+            },
+            {
+              title: "New wave",
+              from: new Date("2024-09-17T17:04:28.600Z"),
+              enabled: false,
             },
           ],
         }}
