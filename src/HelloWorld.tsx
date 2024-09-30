@@ -11,12 +11,20 @@ import { Subtitle } from "./HelloWorld/Subtitle";
 import { Title } from "./HelloWorld/Title";
 import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
+import css from "./HelloWorld.module.css";
 
 export const myCompSchema = z.object({
   titleText: z.string(),
   titleColor: zColor(),
   logoColor1: zColor(),
   logoColor2: zColor(),
+  items: z.array(
+    z.object({
+      title: z.string(),
+      from: z.date().optional(),
+      enabled: z.boolean(),
+    }),
+  ),
 });
 
 export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
@@ -24,13 +32,10 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   titleColor: propTwo,
   logoColor1,
   logoColor2,
+  items,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
-
-  const doSomething = () => {
-    console.log("Hello world!");
-  };
 
   // Animate from 0 to 1 after 25 frames
   const logoTranslationProgress = spring({
@@ -62,6 +67,17 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   // A <AbsoluteFill> is just a absolutely positioned <div>!
   return (
     <AbsoluteFill style={{ backgroundColor: "white" }}>
+      <AbsoluteFill>
+        <div className={css.anchored_to_top_leading}>
+          <div className={css.v_stack}>
+            {items.map((item) => (
+              <span
+                className={item.enabled ? css.enabled : css.disabled}
+              >{`${item.title} (${(item.from ?? new Date()).toDateString()})`}</span>
+            ))}
+          </div>
+        </div>
+      </AbsoluteFill>
       <AbsoluteFill style={{ opacity }}>
         <AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
           <Logo logoColor1={logoColor1} logoColor2={logoColor2} />

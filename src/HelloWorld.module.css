@@ -1,0 +1,20 @@
+.anchored_to_top_leading {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+}
+
+.v_stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 50px;
+}
+
+.enabled {
+  opacity: 100%;
+}
+
+.disabled {
+  opacity: 30%;
+}

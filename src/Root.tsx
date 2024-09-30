@@ -1,4 +1,4 @@
-import './tailwind.css';
+import "./tailwind.css";
 import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
@@ -25,6 +25,13 @@ export const RemotionRoot: React.FC = () => {
           titleColor: "#0433ff",
           logoColor1: "#ff40ff",
           logoColor2: "#86A8E7",
+          items: [
+            {
+              title: "Something in the air 1",
+              from: new Date(),
+              enabled: true,
+            },
+          ],
         }}
       />
 
