@@ -28,6 +28,10 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
 
+  const doSomething = () => {
+    console.log("Hello world!");
+  };
+
   // Animate from 0 to 1 after 25 frames
   const logoTranslationProgress = spring({
     frame: frame - 25,
