@@ -121,7 +121,9 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
 const TextDisplay = (text: string, delay: number = 0) => {
   const frame = useCurrentFrame();
 
-  const opacity = interpolate(frame, [0 + delay, 50 + delay], [0, 1]);
+  const opacity = interpolate(frame, [0 + delay, 50 + delay], [0, 1], {
+    extrapolateRight: "clamp",
+  });
 
   return (
     <div className={css.padding} style={{ opacity }}>
