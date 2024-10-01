@@ -1,4 +1,4 @@
-import { spring, Video } from "remotion";
+import { Easing, spring, Video } from "remotion";
 import {
   AbsoluteFill,
   interpolate,
@@ -126,8 +126,17 @@ const TextDisplay = (text: string, delay: number = 0) => {
     extrapolateRight: "clamp",
   });
 
+  const offset = interpolate(frame, [0 + delay, 50 + delay], [50, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bounce,
+  });
+
   return (
-    <div className={css.padding} style={{ opacity }}>
+    <div
+      className={css.padding}
+      style={{ opacity, transform: `translateY(${offset}px)` }}
+    >
       <div className={css.shadowed_box}>
         <div className={css.padding_20}>
           <span className={css.enabled}>{text}</span>
