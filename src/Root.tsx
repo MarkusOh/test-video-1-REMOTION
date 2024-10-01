@@ -46,10 +46,12 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           ...defaultProps,
         }}
-        calculateMetadata={async ({ props }) => {
+        calculateMetadata={async ({ props, abortSignal }) => {
           const fetchables: z.infer<typeof CatFact>[] = [];
           for (let i = 0; i < props.howMany; i++) {
-            const data = await fetch("https://catfact.ninja/fact");
+            const data = await fetch("https://catfact.ninja/fact", {
+              signal: abortSignal,
+            });
             const result = CatFact.parse(await data.json());
             fetchables.push(result);
           }
