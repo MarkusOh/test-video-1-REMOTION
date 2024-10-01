@@ -10,9 +10,14 @@
     "@remotion/media-utils": "4.0.214",
     "@remotion/tailwind": "4.0.214",
     "@remotion/zod-types": "4.0.214",
+    "@types/react-native": "^0.73.0",
+    "@types/styled-components": "^5.1.34",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-native": "^0.75.3",
+    "react-native-web": "^0.19.12",
     "remotion": "4.0.214",
+    "styled-components": "^6.1.13",
     "zod": "3.22.3"
   },
   "devDependencies": {
