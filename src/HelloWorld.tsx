@@ -122,6 +122,7 @@ const TextDisplay = (text: string, delay: number = 0) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(frame, [0 + delay, 50 + delay], [0, 1], {
+    extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
