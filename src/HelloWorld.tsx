@@ -13,6 +13,11 @@ import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
 import css from "./HelloWorld.module.css";
 
+// {"fact":"The life expectancy of cats has nearly doubled since 1930 - from 8 to 16 years.","length":79}
+export const CatFact = z.object({
+  fact: z.string(),
+});
+
 export const myCompSchema = z.object({
   titleText: z.string(),
   titleColor: zColor(),
@@ -25,6 +30,7 @@ export const myCompSchema = z.object({
       enabled: z.boolean(),
     }),
   ),
+  catFact: CatFact,
 });
 
 export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
@@ -33,6 +39,7 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   logoColor1,
   logoColor2,
   items,
+  catFact,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
@@ -70,6 +77,7 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
       <AbsoluteFill>
         <div className={css.anchored_to_top_leading}>
           <div className={css.v_stack}>
+            <span className={css.enabled}>{catFact.fact}</span>
             {items.map((item) => (
               <span
                 className={item.enabled ? css.enabled : css.disabled}
