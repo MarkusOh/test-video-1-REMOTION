@@ -105,15 +105,7 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
       <AbsoluteFill>
         <div className={css.anchored_to_top_leading}>
           <div className={css.v_stack}>
-            {catFact.map((fact) => (
-              <div className={css.padding}>
-                <div className={css.shadowed_box}>
-                  <div className={css.padding_20}>
-                    <span className={css.enabled}>{fact.fact}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {catFact.map((fact, index) => TextDisplay(fact.fact, index * 20))}
             {items.map((item) => (
               <span
                 className={item.enabled ? css.enabled : css.disabled}
@@ -123,5 +115,21 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
+  );
+};
+
+const TextDisplay = (text: string, delay: number = 0) => {
+  const frame = useCurrentFrame();
+
+  const opacity = interpolate(frame, [0 + delay, 50 + delay], [0, 1]);
+
+  return (
+    <div className={css.padding} style={{ opacity }}>
+      <div className={css.shadowed_box}>
+        <div className={css.padding_20}>
+          <span className={css.enabled}>{text}</span>
+        </div>
+      </div>
+    </div>
   );
 };
