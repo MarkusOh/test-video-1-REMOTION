@@ -1,4 +1,4 @@
-import { spring } from "remotion";
+import { spring, Video } from "remotion";
 import {
   AbsoluteFill,
   interpolate,
@@ -32,6 +32,10 @@ export const myCompSchema = z.object({
   ),
   catFact: z.array(CatFact),
   howMany: z.number().min(1).max(5),
+  sourceWidth: z.number(),
+  sourceHeight: z.number(),
+  sourceDurationInFrames: z.number(),
+  videoSource: z.string(),
 });
 
 export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
@@ -41,6 +45,9 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   logoColor2,
   items,
   catFact,
+  sourceWidth,
+  sourceHeight,
+  videoSource,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
@@ -76,6 +83,13 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   return (
     <AbsoluteFill style={{ backgroundColor: "white" }}>
       <AbsoluteFill style={{ opacity }}>
+        <AbsoluteFill>
+          <Video
+            src={videoSource}
+            width={sourceWidth / 2}
+            height={sourceHeight / 2}
+          />
+        </AbsoluteFill>
         <AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
           <Logo logoColor1={logoColor1} logoColor2={logoColor2} />
         </AbsoluteFill>

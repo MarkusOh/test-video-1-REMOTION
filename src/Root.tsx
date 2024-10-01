@@ -4,6 +4,7 @@ import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { CatFact } from "./HelloWorld";
 import { z } from "zod";
+import { getVideoMetadata } from "@remotion/media-utils";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -27,7 +28,14 @@ export const RemotionRoot: React.FC = () => {
     ],
     catFact: [],
     howMany: 1,
+    sourceWidth: 1920,
+    sourceHeight: 1080,
+    sourceDurationInFrames: 0,
+    videoSource:
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
   } as z.infer<typeof myCompSchema>;
+
+  const fps = 30;
 
   return (
     <>
@@ -37,7 +45,7 @@ export const RemotionRoot: React.FC = () => {
         id="HelloWorld"
         component={HelloWorld}
         durationInFrames={150}
-        fps={30}
+        fps={fps}
         width={1920}
         height={1080}
         // You can override these props for each render:
@@ -56,10 +64,15 @@ export const RemotionRoot: React.FC = () => {
             fetchables.push(result);
           }
 
+          const metadata = await getVideoMetadata(props.videoSource);
+
           return {
             props: {
               ...props,
               catFact: fetchables,
+              width: metadata.width,
+              height: metadata.height,
+              durationInFrames: Math.floor(metadata.durationInSeconds * fps),
             },
           };
         }}

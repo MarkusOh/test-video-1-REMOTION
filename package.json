@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.214",
+    "@remotion/media-utils": "4.0.214",
     "@remotion/tailwind": "4.0.214",
     "@remotion/zod-types": "4.0.214",
     "react": "18.3.1",
