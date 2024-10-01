@@ -18,3 +18,17 @@
 .disabled {
   opacity: 30%;
 }
+
+.padding {
+  padding: 10px;
+}
+
+.padding_20 {
+  padding: 20px;
+}
+
+.shadowed_box {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.662);
+}

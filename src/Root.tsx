@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { CatFact } from "./HelloWorld";
+import { z } from "zod";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -24,10 +25,9 @@ export const RemotionRoot: React.FC = () => {
         enabled: false,
       },
     ],
-    catFact: {
-      fact: "",
-    },
-  };
+    catFact: [],
+    howMany: 1,
+  } as z.infer<typeof myCompSchema>;
 
   return (
     <>
@@ -46,13 +46,18 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           ...defaultProps,
         }}
-        calculateMetadata={async () => {
-          const data = await fetch("https://catfact.ninja/fact");
-          const res = CatFact.parse(await data.json());
+        calculateMetadata={async ({ props }) => {
+          const fetchables: z.infer<typeof CatFact>[] = [];
+          for (let i = 0; i < props.howMany; i++) {
+            const data = await fetch("https://catfact.ninja/fact");
+            const result = CatFact.parse(await data.json());
+            fetchables.push(result);
+          }
+
           return {
             props: {
-              ...defaultProps,
-              catFact: res,
+              ...props,
+              catFact: fetchables,
             },
           };
         }}

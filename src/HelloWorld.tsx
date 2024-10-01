@@ -30,7 +30,8 @@ export const myCompSchema = z.object({
       enabled: z.boolean(),
     }),
   ),
-  catFact: CatFact,
+  catFact: z.array(CatFact),
+  howMany: z.number().min(1).max(5),
 });
 
 export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
@@ -74,18 +75,6 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
   // A <AbsoluteFill> is just a absolutely positioned <div>!
   return (
     <AbsoluteFill style={{ backgroundColor: "white" }}>
-      <AbsoluteFill>
-        <div className={css.anchored_to_top_leading}>
-          <div className={css.v_stack}>
-            <span className={css.enabled}>{catFact.fact}</span>
-            {items.map((item) => (
-              <span
-                className={item.enabled ? css.enabled : css.disabled}
-              >{`${item.title} (${(item.from ?? new Date()).toDateString()})`}</span>
-            ))}
-          </div>
-        </div>
-      </AbsoluteFill>
       <AbsoluteFill style={{ opacity }}>
         <AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
           <Logo logoColor1={logoColor1} logoColor2={logoColor2} />
@@ -98,6 +87,26 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
         <Sequence from={75}>
           <Subtitle />
         </Sequence>
+      </AbsoluteFill>
+      <AbsoluteFill>
+        <div className={css.anchored_to_top_leading}>
+          <div className={css.v_stack}>
+            {catFact.map((fact) => (
+              <div className={css.padding}>
+                <div className={css.shadowed_box}>
+                  <div className={css.padding_20}>
+                    <span className={css.enabled}>{fact.fact}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {items.map((item) => (
+              <span
+                className={item.enabled ? css.enabled : css.disabled}
+              >{`${item.title} (${(item.from ?? new Date()).toDateString()})`}</span>
+            ))}
+          </div>
+        </div>
       </AbsoluteFill>
     </AbsoluteFill>
   );
