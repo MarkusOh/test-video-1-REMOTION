@@ -81,39 +81,54 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
 
   // A <AbsoluteFill> is just a absolutely positioned <div>!
   return (
-    <AbsoluteFill style={{ backgroundColor: "white" }}>
-      <AbsoluteFill style={{ opacity }}>
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(to bottom, #7affad, #3be374",
+        padding: "54px",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          backgroundColor: "white",
+          boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        <AbsoluteFill style={{ opacity }}>
+          <AbsoluteFill>
+            <Video
+              src={videoSource}
+              width={sourceWidth / 2}
+              height={sourceHeight / 2}
+            />
+          </AbsoluteFill>
+          <AbsoluteFill
+            style={{ transform: `translateY(${logoTranslation}px)` }}
+          >
+            <Logo logoColor1={logoColor1} logoColor2={logoColor2} />
+          </AbsoluteFill>
+          {/* Sequences can shift the time for its children! */}
+          <Sequence from={35}>
+            <Title titleText={propOne} titleColor={propTwo} />
+          </Sequence>
+          {/* The subtitle will only enter on the 75th frame. */}
+          <Sequence from={75}>
+            <Subtitle />
+          </Sequence>
+        </AbsoluteFill>
         <AbsoluteFill>
-          <Video
-            src={videoSource}
-            width={sourceWidth / 2}
-            height={sourceHeight / 2}
-          />
-        </AbsoluteFill>
-        <AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
-          <Logo logoColor1={logoColor1} logoColor2={logoColor2} />
-        </AbsoluteFill>
-        {/* Sequences can shift the time for its children! */}
-        <Sequence from={35}>
-          <Title titleText={propOne} titleColor={propTwo} />
-        </Sequence>
-        {/* The subtitle will only enter on the 75th frame. */}
-        <Sequence from={75}>
-          <Subtitle />
-        </Sequence>
-      </AbsoluteFill>
-      <AbsoluteFill>
-        <div className={css.anchored_to_top_leading}>
-          <div className={css.v_stack}>
-            {catFact.map((fact, index) => TextDisplay(fact.fact, index * 20))}
-            {items.map((item) => (
-              <span
-                className={item.enabled ? css.enabled : css.disabled}
-              >{`${item.title} (${(item.from ?? new Date()).toDateString()})`}</span>
-            ))}
+          <div className={css.anchored_to_top_leading}>
+            <div className={css.v_stack}>
+              {catFact.map((fact, index) => TextDisplay(fact.fact, index * 20))}
+              {items.map((item) => (
+                <span
+                  className={item.enabled ? css.enabled : css.disabled}
+                >{`${item.title} (${(item.from ?? new Date()).toDateString()})`}</span>
+              ))}
+            </div>
           </div>
-        </div>
-      </AbsoluteFill>
+        </AbsoluteFill>
+      </div>
     </AbsoluteFill>
   );
 };
