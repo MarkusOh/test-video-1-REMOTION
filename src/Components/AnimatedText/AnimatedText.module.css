@@ -1,0 +1,21 @@
+@font-face {
+  font-family: RidiBatang;
+  src: url(../../../public/RIDIBatang.otf);
+}
+
+.font {
+  font-family: RidiBatang;
+  font-size: 100px;
+  color: white;
+}
+
+.h_stack {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  overflow: hidden;
+}
+
+.backdrop {
+  text-shadow: rgb(0, 0, 0) 10px 10px 10px;
+}

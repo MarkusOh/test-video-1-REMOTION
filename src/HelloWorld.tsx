@@ -12,6 +12,7 @@ import { Title } from "./HelloWorld/Title";
 import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
 import css from "./HelloWorld.module.css";
+import { AnimatedText } from "./Components/AnimatedText/AnimatedText";
 
 // {"fact":"The life expectancy of cats has nearly doubled since 1930 - from 8 to 16 years.","length":79}
 export const CatFact = z.object({
@@ -107,11 +108,9 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
           >
             <Logo logoColor1={logoColor1} logoColor2={logoColor2} />
           </AbsoluteFill>
-          {/* Sequences can shift the time for its children! */}
           <Sequence from={35}>
             <Title titleText={propOne} titleColor={propTwo} />
           </Sequence>
-          {/* The subtitle will only enter on the 75th frame. */}
           <Sequence from={75}>
             <Subtitle />
           </Sequence>
@@ -119,7 +118,9 @@ export const HelloWorld: React.FC<z.infer<typeof myCompSchema>> = ({
         <AbsoluteFill>
           <div className={css.anchored_to_top_leading}>
             <div className={css.v_stack}>
-              {catFact.map((fact, index) => TextDisplay(fact.fact, index * 20))}
+              {catFact.map((fact) => (
+                <AnimatedText sec={0.5} text={fact.fact} />
+              ))}
               {items.map((item) => (
                 <span
                   className={item.enabled ? css.enabled : css.disabled}
